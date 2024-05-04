@@ -1,18 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+using TatedrezGame.Utils;
+using TileMatch.Scripts.Gameplay;
 using UnityEngine;
 
-public class Main : MonoBehaviour
+namespace TileMatch.Scripts
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Main : Singleton<Main>
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [field: SerializeField] public TileFactory TileFactory { get; private set; }
     }
 }

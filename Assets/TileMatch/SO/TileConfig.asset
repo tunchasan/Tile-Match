@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c16844436c462c90f2f973764c33b9, type: 3}
+  m_Name: TileConfig
+  m_EditorClassIdentifier: 
+  <Contexts>k__BackingField:
+  - title: Blue Pentagon
+    type: 0
+    sprite: {fileID: 21300000, guid: 98f62a6ded2e03244aaf856e3cb20aa7, type: 3}
+  - title: Blue Square
+    type: 1
+    sprite: {fileID: 21300000, guid: 91a475aab2d5c15429a4bcc9ecbfc4f5, type: 3}
+  - title: Blue Star
+    type: 2
+    sprite: {fileID: 21300000, guid: 2b4b620cb7bba774ba44e59fe5255972, type: 3}
+  - title: Brown Pentagon
+    type: 3
+    sprite: {fileID: 21300000, guid: 862144e6db67f67488129a88e9f0d993, type: 3}
+  - title: Brown Square
+    type: 4
+    sprite: {fileID: 21300000, guid: aaf933fd0d7f4504dbf70c56f827d27c, type: 3}
+  - title: Brown Star
+    type: 5
+    sprite: {fileID: 21300000, guid: b1e4ea2c696bf9c42800356686e328f0, type: 3}
+  - title: Cream Pentagon
+    type: 6
+    sprite: {fileID: 21300000, guid: bea4ce718374bf849aa50d3230bf42f7, type: 3}
+  - title: Cream Square
+    type: 7
+    sprite: {fileID: 21300000, guid: f37acec232a676d448efcfdced2ced79, type: 3}
+  - title: Cream Star
+    type: 8
+    sprite: {fileID: 21300000, guid: bbb210388f6e29c409346f5d605c9873, type: 3}
+  - title: Green Pentagon
+    type: 9
+    sprite: {fileID: 21300000, guid: 74ef8ccc2947f914fbf7defdb237bb74, type: 3}
+  - title: Green Square
+    type: 10
+    sprite: {fileID: 21300000, guid: 7339906da6199d94a9314deab132bf20, type: 3}
+  - title: Green Star
+    type: 11
+    sprite: {fileID: 21300000, guid: 28b39fc859926a74f899a9fb2115b9f6, type: 3}
+  - title: LightBlue Pentagon
+    type: 12
+    sprite: {fileID: 21300000, guid: 98a6a47a1785bde419ef4d7d2f3a3ee1, type: 3}
+  - title: LightBlue Square
+    type: 13
+    sprite: {fileID: 21300000, guid: 2f25a5cf1864b0949b615f6a2869a80b, type: 3}
+  - title: LightBlue Star
+    type: 14
+    sprite: {fileID: 21300000, guid: b589bf37f3998bf44af5a8ee6415c3a0, type: 3}
+  - title: Orange Pentagon
+    type: 15
+    sprite: {fileID: 21300000, guid: 1dc7c31aa9cddae499858c3ddac1e1a2, type: 3}
+  - title: Orange Square
+    type: 16
+    sprite: {fileID: 21300000, guid: 0e0b1b2a4dce7ae4c9e2233fabc4d450, type: 3}
+  - title: Orange Star
+    type: 17
+    sprite: {fileID: 21300000, guid: 2aba247252f56174aad1676deff1578e, type: 3}
+  - title: Pink Pentagon
+    type: 18
+    sprite: {fileID: 21300000, guid: 38ad5fd1bffbb454cafbfd59ca03c5a1, type: 3}
+  - title: Pink Square
+    type: 19
+    sprite: {fileID: 21300000, guid: 9564e04194c109d4a8340b047f9cd17c, type: 3}
+  - title: Pink Star
+    type: 20
+    sprite: {fileID: 21300000, guid: 2bd21b175b95d2b43bc0ad892944aac2, type: 3}
+  - title: Purple Pentagon
+    type: 21
+    sprite: {fileID: 21300000, guid: 311db2dee1320a044babfb3b7b843580, type: 3}
+  - title: Purple Square
+    type: 22
+    sprite: {fileID: 21300000, guid: d8915b7a9f5c74043b83227650f3ae88, type: 3}
+  - title: Purple Star
+    type: 23
+    sprite: {fileID: 21300000, guid: 7f522e5c71cc833449698c145069233f, type: 3}
+  - title: Red Pentagon
+    type: 24
+    sprite: {fileID: 21300000, guid: 34d6e2f0ba808dc4f95bef7a02b94d1a, type: 3}
+  - title: Red Square
+    type: 25
+    sprite: {fileID: 21300000, guid: ae339aa43880c8c45a9dc5b5ee6cdc47, type: 3}
+  - title: Red Star
+    type: 26
+    sprite: {fileID: 21300000, guid: e8f874713ba3ef243ad650ba6489c018, type: 3}
+  - title: Yellow Pentagon
+    type: 27
+    sprite: {fileID: 21300000, guid: d021554f76e983f4584fab4a0118d0cb, type: 3}
+  - title: Yellow Square
+    type: 28
+    sprite: {fileID: 21300000, guid: 36554cceaa82dc64b8bc4e0789c6eac0, type: 3}
+  - title: Yellow Star
+    type: 29
+    sprite: {fileID: 21300000, guid: bb7ac735bc80d7c499b42db78434e530, type: 3}

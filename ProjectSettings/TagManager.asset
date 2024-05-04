@@ -44,9 +44,6 @@ TagManager:
   - name: TileGrid
     uniqueID: 2362611865
     locked: 0
-  - name: Cell
-    uniqueID: 3309667343
-    locked: 0
   - name: Tile
     uniqueID: 1471229133
     locked: 0

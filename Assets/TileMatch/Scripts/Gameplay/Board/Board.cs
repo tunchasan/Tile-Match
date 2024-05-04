@@ -1,7 +1,7 @@
-using UnityEngine;
-
 namespace TileMatch.Scripts.Gameplay.Board
 {
+    using UnityEngine;
+
     public class Board : MonoBehaviour
     {
         [field: SerializeField] public BoardConfig Config { get; private set; }
