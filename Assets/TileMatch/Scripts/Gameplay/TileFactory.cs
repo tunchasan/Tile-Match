@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using System.Collections.Generic;
 
 namespace TileMatch.Scripts.Gameplay
 {
@@ -15,6 +14,7 @@ namespace TileMatch.Scripts.Gameplay
     {
         [field: SerializeField] public Tile TilePrefab { get; private set; }
         [field: SerializeField] public TileConfig TileConfig { get; private set; }
+        public TileTypeSelector TileTypeSelector { get; private set; } = new();
         
         private readonly Dictionary<int, TileContext> _tiles = new();
 
@@ -22,19 +22,10 @@ namespace TileMatch.Scripts.Gameplay
         {
             DontDestroyOnLoad(gameObject);
         }
-        
-        public Tile GetTile(List<TileType> tileTypes)
-        {
-            return tileTypes.Count == 0 ? GetTile() : GetTile(tileTypes[Random.Range(0, tileTypes.Count)]);
-        }
-        
-        private Tile GetTile()
-        {
-            return GetTile(TileTypeExtensions.GetRandomTileType());
-        }
 
-        private Tile GetTile(TileType type)
+        public Tile GetTile(List<TileType> tileFilter)
         {
+            var tileType = TileTypeSelector.GetTile(tileFilter);
             var unusedTile = _tiles.FirstOrDefault(tile => !tile.Value.Enabled).Value;
 
             if (unusedTile != null)
@@ -43,7 +34,8 @@ namespace TileMatch.Scripts.Gameplay
                 unusedTile.Entity.gameObject.SetActive(true);
                 
                 // Initialize the Tile with configs
-                unusedTile.Entity.Init(type, TileConfig.Get(type).sprite);
+                unusedTile.Entity.Init(tileType, TileConfig.Get(tileType).sprite);
+                TileTypeSelector.AddTile(tileType);
                 return unusedTile.Entity;
             }
 
@@ -57,7 +49,8 @@ namespace TileMatch.Scripts.Gameplay
             });
             
             // Initialize the Tile
-            newTile.Init(newTileId, type, TileConfig.Get(type).sprite);
+            newTile.Init(newTileId, tileType, TileConfig.Get(tileType).sprite);
+            TileTypeSelector.AddTile(tileType);
             return newTile;
         }
 
@@ -72,6 +65,7 @@ namespace TileMatch.Scripts.Gameplay
                 tileContext.Entity.ResetTransform();
                 tileContext.Entity.SetInteraction(true);
                 tileContext.Entity.gameObject.SetActive(false);
+                TileTypeSelector.RemoveTile(tileContext.Entity.Type);
             }
 
             else

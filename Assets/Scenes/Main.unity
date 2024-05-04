@@ -8452,7 +8452,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e33f6a50f094b7cbf353e966c99b282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  count: 10
   Grids:
   - {fileID: 1064239980}
   - {fileID: 1778241357}
@@ -8568,7 +8567,8 @@ MonoBehaviour:
   - {fileID: 621067458}
   - {fileID: 320376986}
   - {fileID: 10371077}
-  Types: 
+  TypeFilter: 000000000200000009000000
+  count: 21
 --- !u!1 &1798049420
 GameObject:
   m_ObjectHideFlags: 0
