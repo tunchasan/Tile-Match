@@ -50,7 +50,11 @@ namespace TileMatch.Scripts.Core.LevelSystem
         /// <returns>The duplicated GameObject.</returns>
         private static GameObject PreparePrefabInstance(GameObject original)
         {
-            return Object.Instantiate(original);
+            var instance = Object.Instantiate(original);
+            var transform = instance.transform;
+            transform.position = Vector3.zero;
+            transform.localScale = Vector3.one;
+            return instance;
         }
 
         /// <summary>
