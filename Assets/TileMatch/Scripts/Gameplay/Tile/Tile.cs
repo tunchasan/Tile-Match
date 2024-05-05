@@ -1,7 +1,7 @@
 using EditorAttributes;
 using UnityEngine;
 
-namespace TileMatch.Scripts.Gameplay
+namespace TileMatch.Scripts.Gameplay.Tile
 {
     public class Tile : MonoBehaviour
     {

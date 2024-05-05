@@ -1,8 +1,8 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using System.Collections.Generic;
 
-namespace TileMatch.Scripts.Gameplay
+namespace TileMatch.Scripts.Gameplay.Tile
 {
     public class TileContext
     {

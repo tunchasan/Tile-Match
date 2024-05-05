@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TatedrezGame.Utils
+namespace TileMatch.Scripts.Utils
 {
     public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {

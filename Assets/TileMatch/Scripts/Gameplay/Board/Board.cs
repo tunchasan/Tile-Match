@@ -13,16 +13,7 @@ namespace TileMatch.Scripts.Gameplay.Board
 
         private void CreateGrid()
         {
-            for (var y = 0; y < Config.Dimension.y; y++)
-            {
-                for (var x = 0; x < Config.Dimension.x; x++)
-                {
-                    var position = new Vector2(x, -y); // Calculate position for each tile
-                    var tile = Instantiate(Config.Grid, transform); // Instantiate tile
-                    tile.transform.localPosition = position;
-                    tile.name = $"Grid ({x},{y})";
-                }
-            }
+            Debug.LogError("Board::CreateGrid");
         }
     }
 }

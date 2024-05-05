@@ -1,5 +1,5 @@
-using TatedrezGame.Utils;
-using TileMatch.Scripts.Gameplay;
+using TileMatch.Scripts.Gameplay.Tile;
+using TileMatch.Scripts.Utils;
 using UnityEngine;
 
 namespace TileMatch.Scripts

@@ -1,8 +1,8 @@
 using System;
 
-namespace TileMatch.Scripts.Gameplay
+namespace TileMatch.Scripts.Gameplay.Tile
 {
-    public static class TileTypeExtensions
+    public static class TileUtils
     {
         private static readonly Random Random = new();
 

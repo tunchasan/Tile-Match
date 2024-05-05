@@ -1,8 +1,8 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using System.Collections.Generic;
 
-namespace TileMatch.Scripts.Gameplay
+namespace TileMatch.Scripts.Gameplay.Tile
 {
     public class TileTypeContext
     {
@@ -24,8 +24,9 @@ namespace TileMatch.Scripts.Gameplay
                 }
             }
             
+            // Returns a random tile type if the provided list is empty
             return tileTypes.Count == 0 ? 
-                TileTypeExtensions.GetRandomTileType() : 
+                TileUtils.GetRandomTileType() : 
                 tileTypes[Random.Range(0, tileTypes.Count)];
         }
 

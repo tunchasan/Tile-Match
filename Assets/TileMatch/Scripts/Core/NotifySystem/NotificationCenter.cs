@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TowerDefence.Core.NotifySystem
+namespace TileMatch.Scripts.Core.NotifySystem
 {
     public static class NotificationCenter
     {

@@ -1,4 +1,4 @@
-namespace TileMatch.Scripts.Gameplay
+namespace TileMatch.Scripts.Gameplay.Tile
 {
     public enum TileType
     {

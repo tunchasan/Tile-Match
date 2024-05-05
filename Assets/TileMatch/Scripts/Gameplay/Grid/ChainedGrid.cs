@@ -7,7 +7,7 @@ namespace TileMatch.Scripts.Gameplay.Grid
         [field: SerializeField] public Grid[] Grids { get; private set; }
         public int LastIndex { get; private set; }
         
-        public bool Fill(Tile tile)
+        public bool Fill(Tile.Tile tile)
         {
             if (!this.HasAvailableSlot()) return false;
             Grids[LastIndex].Fill(tile);
