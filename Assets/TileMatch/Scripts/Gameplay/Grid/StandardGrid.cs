@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 namespace TileMatch.Scripts.Gameplay.Grid
 {
     [RequireComponent(typeof(SortingGroup))]
-    public class Grid : MonoBehaviour
+    public class StandardGrid : MonoBehaviour
     {
         public Tile.Tile AttachedTile { get; private set; }
 

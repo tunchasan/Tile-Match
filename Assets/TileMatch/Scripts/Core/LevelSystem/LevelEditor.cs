@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEngine;
 
@@ -14,27 +16,30 @@ namespace TileMatch.Scripts.Core.LevelSystem
         {
             base.OnInspectorGUI();
 
-            var boardTop = (LevelGenerator)target;
+            var levelGenerator = (LevelGenerator)target;
 
             GUI.backgroundColor = Color.green;
             if (GUILayout.Button("Generate Level"))
             {
-                boardTop.GenerateLevel();
+                levelGenerator.GenerateLevel();
                 Debug.Log("Level Generated!");
             }
             
             GUI.backgroundColor = Color.yellow;
             if (GUILayout.Button("Save Level"))
             {
+                levelGenerator.SaveLevel();
                 Debug.Log("Level Saved!");
             }
             
             GUI.backgroundColor = Color.red;
             if (GUILayout.Button("Clear Level"))
             {
-                boardTop.ClearLevel();
+                levelGenerator.ClearLevel();
                 Debug.Log("Level Cleared!");
             }
         }
     }
 }
+
+#endif

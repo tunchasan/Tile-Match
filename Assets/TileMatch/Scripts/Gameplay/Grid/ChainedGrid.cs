@@ -4,7 +4,7 @@ namespace TileMatch.Scripts.Gameplay.Grid
 {
     public class ChainedGrid : MonoBehaviour
     {
-        [field: SerializeField] public Grid[] Grids { get; private set; }
+        [field: SerializeField] public StandardGrid[] Grids { get; private set; }
         public int LastIndex { get; private set; }
         
         public bool Fill(Tile.Tile tile)

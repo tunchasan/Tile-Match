@@ -1,10 +1,13 @@
+#if UNITY_EDITOR
+
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using EditorAttributes;
-using TileMatch.Scripts.Gameplay.Tile;
 using UnityEngine;
+using EditorAttributes;
+using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using TileMatch.Scripts.Gameplay.Grid;
+using TileMatch.Scripts.Gameplay.Tile;
 
 namespace TileMatch.Scripts.Core.LevelSystem
 {
@@ -39,12 +42,16 @@ namespace TileMatch.Scripts.Core.LevelSystem
         [SerializeField]
         // Represents top layer of the board.
         // Array of standard Grid objects in the level, where tiles are assigned during level generation.
-        private Gameplay.Grid.Grid[] topLayerGrids;
+        public StandardGrid[] topLayerGrids;
 
         [SerializeField]
         // Represents bottom layer of the board.
         // Array of ChainedGrid objects for more complex tile arrangements that may have linked behavior or properties.
-        private Gameplay.Grid.ChainedGrid[] bottomLayerGrids;
+        public ChainedGrid[] bottomLayerGrids;
+
+        [Header("Others")] 
+        [SerializeField] private int levelSaveIndexPointer;
+        [SerializeField] private string levelSaveDirectoryPath;
         
         /// <summary>
         /// Ensures tileCount is a multiple of 3 and calculates the bottomTileIntensity based on topTileIntensity.
@@ -76,6 +83,14 @@ namespace TileMatch.Scripts.Core.LevelSystem
     
             // Check and resolve any improper tile interactions
             ValidateGrids();
+        }
+
+        /// <summary>
+        ///  Initiates the process to save the current GameObject state as a prefab (new level)
+        /// </summary>
+        public void SaveLevel()
+        {
+            LevelPrefabUtility.SaveLevelPrefab(this, ref levelSaveIndexPointer, levelSaveDirectoryPath);
         }
 
         /// <summary>
@@ -188,3 +203,5 @@ namespace TileMatch.Scripts.Core.LevelSystem
         }
     }
 }
+
+#endif
