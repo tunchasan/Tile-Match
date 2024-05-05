@@ -27,7 +27,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
             var levelGeneratorComponentInstance = prefabInstance.GetComponent<LevelGenerator>();
             CleanUpPrefabInstance(levelGeneratorComponentInstance, levelGenerator);
             SaveAndLogPrefab(prefabInstance, ref saveLevelIndexPointer, saveLevelDirectoryPath);
-            CleanupPrefabInstance(prefabInstance);
+            DestroyPrefabInstance(prefabInstance);
             AssetDatabase.Refresh();
         }
 
@@ -136,7 +136,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
         /// Destroys the temporary prefab instance after saving is complete.
         /// </summary>
         /// <param name="instance">The instance to destroy.</param>
-        private static void CleanupPrefabInstance(Object instance)
+        private static void DestroyPrefabInstance(Object instance)
         {
             Object.DestroyImmediate(instance);
         }

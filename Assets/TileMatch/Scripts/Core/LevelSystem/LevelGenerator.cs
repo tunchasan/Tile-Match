@@ -137,10 +137,10 @@ namespace TileMatch.Scripts.Core.LevelSystem
             foreach (var t in selectedChainedGrids)
             {
                 // Loop through each individual grid within a chained grid and assign tiles
-                foreach (var t1 in t.Grids)
+                foreach (var unused in t.Grids)
                 {
                     filledGrids++;
-                    t1.Fill(Main.Instance.TileFactory.GetTile(typeFilter)); // Fill the grid with a tile from the factory based on the type filter
+                    t.Fill(Main.Instance.TileFactory.GetTile(typeFilter)); // Fill the grid with a tile from the factory based on the type filter
                     if (filledGrids >= quantity) return; // Exit if the desired quantity of tiles has been placed
                 }
             }
