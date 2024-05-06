@@ -10,10 +10,12 @@ namespace TileMatch.Scripts.Gameplay.Level
     {
         [field: SerializeField, ReadOnly] private List<Tile.Tile> tiles;
 
+        #if UNITY_EDITOR
         public void Init()
         {
             tiles = GetComponentsInChildren<Tile.Tile>().ToList();
         }
+        #endif
 
         private void OnLevelStateChanged(Tile.Tile tile)
         {
