@@ -5,6 +5,9 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
 using TileMatch.Scripts.Gameplay.Grid;
+using TileMatch.Scripts.Gameplay.Level;
+using UnityEditor.AddressableAssets;
+using UnityEditor.AddressableAssets.Settings;
 
 namespace TileMatch.Scripts.Core.LevelSystem
 {
@@ -51,6 +54,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
         private static GameObject PreparePrefabInstance(GameObject original)
         {
             var instance = Object.Instantiate(original);
+            instance.AddComponent<Level>().Init();
             var transform = instance.transform;
             transform.position = Vector3.zero;
             transform.localScale = Vector3.one;
@@ -124,16 +128,51 @@ namespace TileMatch.Scripts.Core.LevelSystem
         }
 
         /// <summary>
-        /// Saves the cleaned-up GameObject as a prefab at the specified path and logs the outcome.
+        /// Saves the provided GameObject as a prefab at the specified directory path and marks it as an addressable asset.
+        /// Increments the level index pointer after successful operation.
         /// </summary>
-        /// <param name="instance">The instance to save as a prefab.</param>
-        /// <param name="saveLevelIndexPointer">Reference to the index pointer for unique naming.</param>
-        /// <param name="directoryPath">The directory where the prefab should be saved.</param>
+        /// <param name="instance">The GameObject instance to save as a prefab.</param>
+        /// <param name="saveLevelIndexPointer">Reference to the level index counter, incremented after successful save.</param>
+        /// <param name="directoryPath">The file system directory path where the prefab should be saved.</param>
         private static void SaveAndLogPrefab(GameObject instance, ref int saveLevelIndexPointer, string directoryPath)
         {
-            var localPath = $"{directoryPath}/Level_{saveLevelIndexPointer++}.prefab";
+            var localPath = $"{directoryPath}/Level_{saveLevelIndexPointer}.prefab";
             var savedPrefab = PrefabUtility.SaveAsPrefabAsset(instance, localPath);
-            Debug.Log(savedPrefab != null ? $"Prefab saved/updated at: {localPath}" : "Failed to save prefab.");
+    
+            if (savedPrefab != null)
+            {
+                Debug.Log($"Prefab saved/updated at: {localPath}");
+                MarkAsAddressable(savedPrefab, $"Level_{saveLevelIndexPointer}");
+                saveLevelIndexPointer++; // Increment only after saving and marking as addressable to ensure consistency
+            }
+            else
+            {
+                Debug.LogError("Failed to save prefab.");
+            }
+        }
+
+        /// <summary>
+        /// Marks the specified Unity Object as an addressable asset within a designated group, setting its address.
+        /// </summary>
+        /// <param name="prefab">The Object to mark as addressable, typically a prefab.</param>
+        /// <param name="address">The unique address to assign to the prefab within the addressables system.</param>
+        private static void MarkAsAddressable(Object prefab, string address)
+        {
+            // Get the Addressable Asset settings
+            var settings = AddressableAssetSettingsDefaultObject.GetSettings(true);
+
+            // Create or get existing group
+            var group = settings.FindGroup("Levels") ?? settings.CreateGroup("Levels", false, false, true, null);
+
+            // Create an entry in the Addressable Asset settings
+            var guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefab));
+            var entry = settings.CreateOrMoveEntry(guid, group);
+            entry.address = address;
+
+            // Save the settings and refresh
+            settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryMoved, entry, true);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
         }
 
         /// <summary>

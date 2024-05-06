@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4505775986bb64bfb99f977213370756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <TileFactory>k__BackingField: {fileID: 1493040408}
+  <LevelManager>k__BackingField: {fileID: 0}
 --- !u!4 &1493040407
 Transform:
   m_ObjectHideFlags: 0
@@ -348,6 +348,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LevelGenerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205227300468257038, guid: fc85d088b8e784c3db1a9fcb17797e6a,
+        type: 3}
+      propertyPath: levelSaveDirectoryPath
+      value: Assets/Levels
       objectReference: {fileID: 0}
     - target: {fileID: 2205227300468257039, guid: fc85d088b8e784c3db1a9fcb17797e6a,
         type: 3}

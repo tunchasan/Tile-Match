@@ -1,4 +1,5 @@
 using System;
+using TileMatch.Scripts.Gameplay.Tile;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -31,6 +32,14 @@ namespace TileMatch.Scripts.Gameplay.Grid
         public bool Fill(Tile.Tile tile)
         {
             if (!this.IsEmpty()) return false;
+
+            #if UNITY_EDITOR
+            if (_sortingGroup == null)
+            {
+                _sortingGroup = GetComponent<SortingGroup>();
+            }
+            #endif
+            
             AttachedTile = tile;
             AttachedTile.SetParent(transform);
             AttachedTile.ResetTransform();
@@ -41,7 +50,7 @@ namespace TileMatch.Scripts.Gameplay.Grid
         public void Clear()
         {
             if(AttachedTile == null) return;
-            Main.Instance.TileFactory.DestroyTile(AttachedTile);
+            TileFactory.Instance.DestroyTile(AttachedTile);
             AttachedTile = null;
         }
     }

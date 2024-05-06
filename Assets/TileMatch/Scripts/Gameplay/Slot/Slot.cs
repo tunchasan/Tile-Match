@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TileMatch.Scripts.Gameplay
+namespace TileMatch.Scripts.Gameplay.Slot
 {
     public class Slot : MonoBehaviour
     {

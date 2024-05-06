@@ -1,6 +1,7 @@
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
+using TileMatch.Scripts.Utils;
 
 namespace TileMatch.Scripts.Gameplay.Tile
 {
@@ -10,7 +11,7 @@ namespace TileMatch.Scripts.Gameplay.Tile
         public Tile Entity;
     }
 
-    public class TileFactory : MonoBehaviour
+    public class TileFactory : Singleton<TileFactory>
     {
         [field: SerializeField] public Tile TilePrefab { get; private set; }
         [field: SerializeField] public TileConfig TileConfig { get; private set; }
@@ -52,15 +53,6 @@ namespace TileMatch.Scripts.Gameplay.Tile
             newTile.Init(newTileId, tileType, TileConfig.Get(tileType).sprite);
             TileTypeSelector.AddTile(tileType);
             return newTile;
-        }
-
-        public void ReceiveTile(Tile tile)
-        {
-            _tiles.Add(tile.Id , new TileContext
-            {
-                Enabled = true,
-                Entity = tile
-            });
         }
 
         public void DestroyTile(Tile tile)

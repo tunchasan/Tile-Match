@@ -1,10 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
-using TileMatch.Scripts.Core.LevelSystem;
 using UnityEngine;
 using TileMatch.Scripts.Core.NotifySystem;
 
-namespace TileMatch.Scripts.Gameplay
+namespace TileMatch.Scripts.Gameplay.Slot
 {
     public class SlotController : MonoBehaviour
     {
@@ -25,8 +22,10 @@ namespace TileMatch.Scripts.Gameplay
                 var availableSlot = slots[_lastFilledIndex];
 
                 availableSlot.Fill(receivedTile);
-
+                
                 _lastFilledIndex++;
+                
+                NotificationCenter.PostNotification(NotificationTag.OnTilePlacedToSlot, receivedTile);
             }
         }
         

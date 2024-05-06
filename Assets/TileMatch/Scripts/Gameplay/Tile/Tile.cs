@@ -1,10 +1,8 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 using EditorAttributes;
-using TileMatch.Scripts.Core.LevelSystem;
-using TileMatch.Scripts.Core.NotifySystem;
 using TileMatch.Scripts.Gameplay.Grid;
+using TileMatch.Scripts.Core.NotifySystem;
 
 namespace TileMatch.Scripts.Gameplay.Tile
 {
@@ -16,12 +14,8 @@ namespace TileMatch.Scripts.Gameplay.Tile
         [field: SerializeField, ReadOnly] public TileType Type { get; private set; }
         [field: SerializeField] private SpriteRenderer Renderer { get; set; }
         [field: SerializeField] private BoxCollider2D Collider { get; set; }
-
-        private void Start()
-        {
-            Main.Instance.TileFactory.ReceiveTile(this);
-        }
-
+        
+        
         public void Init(TileType type, Sprite sprite)
         {
             Type = type;

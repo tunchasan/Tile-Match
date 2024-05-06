@@ -99,7 +99,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
         public void ClearLevel()
         {
             // Clear all tiles managed by the TileFactory
-            Main.Instance.TileFactory.Clear();
+            TileFactory.Instance.Clear();
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
             // Loop through each grid and assign a tile from the tile factory based on the type filter
             for (var i = 0; i < Mathf.Min(quantity, topLayerGrids.Length); i++)
             {
-                topLayerGrids[i].Fill(Main.Instance.TileFactory.GetTile(typeFilter));
+                topLayerGrids[i].Fill(TileFactory.Instance.GetTile(typeFilter));
             }
         }
 
@@ -140,7 +140,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
                 foreach (var unused in t.Grids)
                 {
                     filledGrids++;
-                    t.Fill(Main.Instance.TileFactory.GetTile(typeFilter)); // Fill the grid with a tile from the factory based on the type filter
+                    t.Fill(TileFactory.Instance.GetTile(typeFilter)); // Fill the grid with a tile from the factory based on the type filter
                     if (filledGrids >= quantity) return; // Exit if the desired quantity of tiles has been placed
                 }
             }
@@ -152,7 +152,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
         /// </summary>
         private void ValidateGrids()
         {
-            var activeTiles = Main.Instance.TileFactory.GetActiveTiles();
+            var activeTiles = TileFactory.Instance.GetActiveTiles();
 
             // Iterate through all pairs of active tiles to check for overlaps
             foreach (var t1 in activeTiles)

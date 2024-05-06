@@ -4,5 +4,6 @@
     {
         public const string OnGameStart = "OnGameStart";
         public const string OnTileSelect = "OnTileSelect";
+        public const string OnTilePlacedToSlot = "OnTilePlacedToSlot";
     }
 }
