@@ -1,5 +1,7 @@
-using EditorAttributes;
+using DG.Tweening;
 using UnityEngine;
+using EditorAttributes;
+using TileMatch.Scripts.Gameplay.Grid;
 
 namespace TileMatch.Scripts.Gameplay.Tile
 {
@@ -10,6 +12,7 @@ namespace TileMatch.Scripts.Gameplay.Tile
         [field: SerializeField, ReadOnly] public bool InteractionStatus { get; private set; } = true;
         [field: SerializeField, ReadOnly] public TileType Type { get; private set; }
         [field: SerializeField] private SpriteRenderer Renderer { get; set; }
+        [field: SerializeField] private BoxCollider2D Collider { get; set; }
 
         public void Init(TileType type, Sprite sprite)
         {
@@ -41,6 +44,7 @@ namespace TileMatch.Scripts.Gameplay.Tile
 
         public void SetInteraction(bool status)
         {
+            Collider.enabled = status;
             InteractionStatus = status;
             SetColor(status ? Color.white : Color.gray);
         }
@@ -50,6 +54,21 @@ namespace TileMatch.Scripts.Gameplay.Tile
             var tileTransform = transform;
             tileTransform.localScale = Vector3.one;
             tileTransform.localPosition = Vector3.zero;
+        }
+        
+        private void OnMouseDown()
+        {
+            GetComponentInParent<StandardGrid>()?.Highlight();
+            transform.DOScale(Vector3.one * 1.2F, .25F);
+        }
+
+        private void OnMouseUp()
+        {
+            DOTween.Kill(transform);
+            transform.DOScale(Vector3.one, .1F).OnComplete(() =>
+            {
+                GetComponentInParent<StandardGrid>()?.ClearHighlight();
+            });
         }
     }
 }
