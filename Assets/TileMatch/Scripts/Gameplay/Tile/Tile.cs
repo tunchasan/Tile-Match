@@ -1,6 +1,9 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 using EditorAttributes;
+using TileMatch.Scripts.Core.LevelSystem;
+using TileMatch.Scripts.Core.NotifySystem;
 using TileMatch.Scripts.Gameplay.Grid;
 
 namespace TileMatch.Scripts.Gameplay.Tile
@@ -13,6 +16,11 @@ namespace TileMatch.Scripts.Gameplay.Tile
         [field: SerializeField, ReadOnly] public TileType Type { get; private set; }
         [field: SerializeField] private SpriteRenderer Renderer { get; set; }
         [field: SerializeField] private BoxCollider2D Collider { get; set; }
+
+        private void Start()
+        {
+            Main.Instance.TileFactory.ReceiveTile(this);
+        }
 
         public void Init(TileType type, Sprite sprite)
         {
@@ -49,11 +57,21 @@ namespace TileMatch.Scripts.Gameplay.Tile
             SetColor(status ? Color.white : Color.gray);
         }
 
-        public void ResetTransform()
+        public void ResetTransform(bool animate = false, float duration = .25F)
         {
             var tileTransform = transform;
-            tileTransform.localScale = Vector3.one;
-            tileTransform.localPosition = Vector3.zero;
+
+            if (animate)
+            {
+                tileTransform.DOScale(Vector3.one, duration);
+                tileTransform.DOLocalMove(Vector3.zero, duration);
+            }
+
+            else
+            {
+                tileTransform.localScale = Vector3.one;
+                tileTransform.localPosition = Vector3.zero;   
+            }
         }
         
         private void OnMouseDown()
@@ -69,6 +87,8 @@ namespace TileMatch.Scripts.Gameplay.Tile
             {
                 GetComponentInParent<StandardGrid>()?.ClearHighlight();
             });
+            
+            NotificationCenter.PostNotification(NotificationTag.OnTileSelect, this);
         }
     }
 }
