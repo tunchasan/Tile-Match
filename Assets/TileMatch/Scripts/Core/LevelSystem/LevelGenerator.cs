@@ -48,10 +48,6 @@ namespace TileMatch.Scripts.Core.LevelSystem
         // Represents bottom layer of the board.
         // Array of ChainedGrid objects for more complex tile arrangements that may have linked behavior or properties.
         public ChainedGrid[] bottomLayerGrids;
-
-        [Header("Others")] 
-        [SerializeField] private int levelSaveIndexPointer;
-        [SerializeField] private string levelSaveDirectoryPath;
         
         /// <summary>
         /// Ensures tileCount is a multiple of 3 and calculates the bottomTileIntensity based on topTileIntensity.
@@ -90,7 +86,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
         /// </summary>
         public void SaveLevel()
         {
-            LevelPrefabUtility.SaveLevelPrefab(this, ref levelSaveIndexPointer, levelSaveDirectoryPath);
+            LevelPrefabUtility.SaveLevelPrefab(this);
         }
 
         /// <summary>

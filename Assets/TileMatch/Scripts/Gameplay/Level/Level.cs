@@ -22,14 +22,21 @@ namespace TileMatch.Scripts.Gameplay.Level
             LevelUtility.RefreshLevel(tiles.Except(new []{tile}).ToArray());
         }
 
+        private void OnMatchReceived(List<Tile.Tile> matchedTiles)
+        {
+            tiles = tiles.Except(matchedTiles).ToList();
+        }
+
         private void OnEnable()
         {
             NotificationCenter.AddObserver<Tile.Tile>(NotificationTag.OnTilePlacedToSlot, OnLevelStateChanged);
+            NotificationCenter.AddObserver<List<Tile.Tile>>(NotificationTag.OnTilesMatched, OnMatchReceived);
         }
 
         private void OnDisable()
         {
             NotificationCenter.RemoveObserver<Tile.Tile>(NotificationTag.OnTilePlacedToSlot, OnLevelStateChanged);
+            NotificationCenter.RemoveObserver<List<Tile.Tile>>(NotificationTag.OnTilesMatched, OnMatchReceived);
         }
     }
 }

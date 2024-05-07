@@ -17,19 +17,19 @@ namespace TileMatch.Scripts.Core.LevelSystem
     /// </summary>
     public static class LevelPrefabUtility
     {
+        private const string DirectoryPath = "Assets/Levels";
+        
         /// <summary>
         /// Saves a GameObject as a prefab after performing necessary cleanups and directory checks.
         /// </summary>
         /// <param name="levelGenerator">The LevelGenerator instance that contains the data to save.</param>
-        /// <param name="saveLevelIndexPointer">Reference to the index pointer for saving unique prefab files.</param>
-        /// <param name="saveLevelDirectoryPath">The directory path where the prefab should be saved.</param>
-        public static void SaveLevelPrefab(LevelGenerator levelGenerator, ref int saveLevelIndexPointer, string saveLevelDirectoryPath)
+        public static void SaveLevelPrefab(LevelGenerator levelGenerator)
         {
-            CreateDirectoryIfNeeded(saveLevelDirectoryPath);
+            CreateDirectoryIfNeeded();
             var prefabInstance = PreparePrefabInstance(levelGenerator.gameObject);
             var levelGeneratorComponentInstance = prefabInstance.GetComponent<LevelGenerator>();
             CleanUpPrefabInstance(levelGeneratorComponentInstance, levelGenerator);
-            SaveAndLogPrefab(prefabInstance, ref saveLevelIndexPointer, saveLevelDirectoryPath);
+            SaveAndLogPrefab(prefabInstance);
             DestroyPrefabInstance(prefabInstance);
             AssetDatabase.Refresh();
         }
@@ -37,12 +37,11 @@ namespace TileMatch.Scripts.Core.LevelSystem
         /// <summary>
         /// Ensures that the specified directory exists, and creates it if it does not.
         /// </summary>
-        /// <param name="path">The directory path to check and potentially create.</param>
-        private static void CreateDirectoryIfNeeded(string path)
+        private static void CreateDirectoryIfNeeded()
         {
-            if (!Directory.Exists(path))
+            if (!Directory.Exists(DirectoryPath))
             {
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(DirectoryPath);
             }
         }
 
@@ -132,18 +131,15 @@ namespace TileMatch.Scripts.Core.LevelSystem
         /// Increments the level index pointer after successful operation.
         /// </summary>
         /// <param name="instance">The GameObject instance to save as a prefab.</param>
-        /// <param name="saveLevelIndexPointer">Reference to the level index counter, incremented after successful save.</param>
-        /// <param name="directoryPath">The file system directory path where the prefab should be saved.</param>
-        private static void SaveAndLogPrefab(GameObject instance, ref int saveLevelIndexPointer, string directoryPath)
+        private static void SaveAndLogPrefab(GameObject instance)
         {
-            var localPath = $"{directoryPath}/Level_{saveLevelIndexPointer}.prefab";
+            var localPath = $"{DirectoryPath}/Level_{GetLevelPointerIndex() + 1}.prefab";
             var savedPrefab = PrefabUtility.SaveAsPrefabAsset(instance, localPath);
     
             if (savedPrefab != null)
             {
                 Debug.Log($"Prefab saved/updated at: {localPath}");
-                MarkAsAddressable(savedPrefab, $"Level_{saveLevelIndexPointer}");
-                saveLevelIndexPointer++; // Increment only after saving and marking as addressable to ensure consistency
+                MarkAsAddressable(savedPrefab);
             }
             else
             {
@@ -155,24 +151,32 @@ namespace TileMatch.Scripts.Core.LevelSystem
         /// Marks the specified Unity Object as an addressable asset within a designated group, setting its address.
         /// </summary>
         /// <param name="prefab">The Object to mark as addressable, typically a prefab.</param>
-        /// <param name="address">The unique address to assign to the prefab within the addressables system.</param>
-        private static void MarkAsAddressable(Object prefab, string address)
+        private static void MarkAsAddressable(Object prefab)
         {
             // Get the Addressable Asset settings
             var settings = AddressableAssetSettingsDefaultObject.GetSettings(true);
 
             // Create or get existing group
             var group = settings.FindGroup("Levels") ?? settings.CreateGroup("Levels", false, false, true, null);
+            var groupElementCount = group.entries.Count;
 
             // Create an entry in the Addressable Asset settings
             var guid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefab));
             var entry = settings.CreateOrMoveEntry(guid, group);
-            entry.address = address;
+            entry.address = $"Level_{groupElementCount + 1}";
 
             // Save the settings and refresh
             settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryMoved, entry, true);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
+        }
+
+        private static int GetLevelPointerIndex()
+        {
+            // Get the Addressable Asset settings
+            var settings = AddressableAssetSettingsDefaultObject.GetSettings(true);
+            var group = settings.FindGroup("Levels");
+            return settings.FindGroup("Levels") == null ? 0 : group.entries.Count;
         }
 
         /// <summary>
