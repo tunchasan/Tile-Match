@@ -171,6 +171,10 @@ namespace TileMatch.Scripts.Core.LevelSystem
             AssetDatabase.Refresh();
         }
 
+        /// <summary>
+        /// Retrieves the index for the next level by counting the number of entries in the "Levels" group of the Addressable Assets.
+        /// If the "Levels" group does not exist, it returns 0, indicating no levels have been added yet.
+        /// </summary>
         private static int GetLevelPointerIndex()
         {
             // Get the Addressable Asset settings
