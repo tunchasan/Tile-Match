@@ -4,15 +4,15 @@ namespace TileMatch.Scripts.Gameplay.Slot
 {
     public class Slot : MonoBehaviour
     {
-        public Tile.Tile AttachedTile { get; private set; }
+        public Tile.StandardTile AttachedTile { get; private set; }
 
         public bool IsEmpty => AttachedTile == null;
         
-        public void Fill(Tile.Tile receivedTile)
+        public void Fill(Tile.StandardTile receivedStandardTile)
         {
-            receivedTile.SetParent(transform);
-            receivedTile.ResetTransform(true);
-            AttachedTile = receivedTile;
+            receivedStandardTile.SetParent(transform);
+            receivedStandardTile.ResetTransform(true);
+            AttachedTile = receivedStandardTile;
         }
 
         public void Clear()

@@ -5,19 +5,17 @@ namespace TileMatch.Scripts.Gameplay.Tile
     public struct TileColliderContext
     {
         public bool IsOverlap;
-        public Tile UpperTile;
-        public Tile LowerTile;
+        public StandardTile UpperStandardTile;
+        public StandardTile LowerStandardTile;
     }
     
     public static class TileCollider
     {
-        private const float Threshold = .75f;
-
-        public static bool IsOverlapped(Tile tile1, Tile tile2, out TileColliderContext tileColliderContext)
+        public static bool IsOverlapped(StandardTile tile1, StandardTile tile2, float threshold, out TileColliderContext tileColliderContext)
         {
             var position1 = tile1.transform.position;
             var position2 = tile2.transform.position;
-            var isOverlap = Vector2.Distance(position1, position2) < Threshold;
+            var isOverlap = Vector2.Distance(position1, position2) < threshold;
             
             var sortingOrder1 = tile1.SortingOrder;
             var sortingOrder2 = tile2.SortingOrder;
@@ -28,8 +26,8 @@ namespace TileMatch.Scripts.Gameplay.Tile
             tileColliderContext = new TileColliderContext
             {
                 IsOverlap = isOverlap,
-                LowerTile = lowerTile,
-                UpperTile = upperTile
+                LowerStandardTile = lowerTile,
+                UpperStandardTile = upperTile
             };
 
             return tileColliderContext.IsOverlap;

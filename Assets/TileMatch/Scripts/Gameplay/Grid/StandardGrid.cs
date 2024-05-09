@@ -1,14 +1,13 @@
-using System;
-using TileMatch.Scripts.Gameplay.Tile;
 using UnityEngine;
 using UnityEngine.Rendering;
+using TileMatch.Scripts.Gameplay.Tile;
 
 namespace TileMatch.Scripts.Gameplay.Grid
 {
     [RequireComponent(typeof(SortingGroup))]
     public class StandardGrid : MonoBehaviour
     {
-        public Tile.Tile AttachedTile { get; private set; }
+        public StandardTile AttachedTile { get; private set; }
 
         private SortingGroup _sortingGroup;
         private int _originalSortingOrder;
@@ -16,11 +15,11 @@ namespace TileMatch.Scripts.Gameplay.Grid
         private void Awake()
         {
             _sortingGroup = GetComponent<SortingGroup>();
+            _originalSortingOrder = _sortingGroup.sortingOrder;
         }
 
         public void Highlight()
         {
-            _originalSortingOrder = _sortingGroup.sortingOrder;
             _sortingGroup.sortingOrder = 10;
         }
 
@@ -29,28 +28,44 @@ namespace TileMatch.Scripts.Gameplay.Grid
             _sortingGroup.sortingOrder = _originalSortingOrder;
         }
 
-        public bool Fill(Tile.Tile tile)
+        public void Fill(StandardTile standardTile, bool animate = true)
         {
-            if (!this.IsEmpty()) return false;
-
-            #if UNITY_EDITOR
-            if (_sortingGroup == null)
-            {
-                _sortingGroup = GetComponent<SortingGroup>();
-            }
-            #endif
-            
-            AttachedTile = tile;
+            if (!this.IsEmpty()) return;
+            AttachedTile = standardTile;
             AttachedTile.SetParent(transform);
-            AttachedTile.ResetTransform();
+            AttachedTile.ResetTransform(animate);
             AttachedTile.SetSortingOrder(_sortingGroup.sortingOrder);
-            return true;
         }
 
         public void Clear()
         {
             if(AttachedTile == null) return;
+            AttachedTile = null;
+        }
+        
+        public void FillInEditMode(StandardTile standardTile)
+        {
+            if (!this.IsEmpty()) return;
+
+            if (_sortingGroup == null)
+            {
+                _sortingGroup = GetComponent<SortingGroup>();
+            }
+
+            AttachedTile = standardTile;
+            AttachedTile.SetParent(transform);
+            AttachedTile.ResetTransform();
+            AttachedTile.SetSortingOrder(_sortingGroup.sortingOrder);
+        }
+        
+        public void ClearInEditMode()
+        {
+            if(AttachedTile == null) return;
+            
+            #if UNITY_EDITOR
             TileFactory.Instance.DestroyTile(AttachedTile);
+            #endif
+
             AttachedTile = null;
         }
     }

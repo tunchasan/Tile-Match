@@ -1,4 +1,8 @@
+using System.Threading.Tasks;
 using TileMatch.Scripts.Gameplay.Tile;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace TileMatch.Scripts.Gameplay.Level
 {
@@ -26,6 +30,23 @@ namespace TileMatch.Scripts.Gameplay.Level
                     }
                 }
             }
+        }
+        
+        public static async Task<bool> IsLevelAddressValid(string address)
+        {
+            var handle = Addressables.LoadResourceLocationsAsync(address);
+
+            await handle.Task;
+
+            if (handle.Status == AsyncOperationStatus.Succeeded)
+            {
+                var isValid = handle.Result != null && handle.Result.Count > 0;
+                Addressables.Release(handle);
+                return isValid;
+            }
+
+            Debug.LogError($"Failed to check addressable asset: {address}");
+            return false;
         }
     }
 }

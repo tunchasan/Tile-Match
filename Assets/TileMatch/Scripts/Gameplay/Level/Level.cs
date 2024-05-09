@@ -32,8 +32,8 @@ namespace TileMatch.Scripts.Gameplay.Level
         [field: SerializeField, ReadOnly] private List<StandardGrid> Grids { get; set; } = new ();
 
         public int ActiveTiles => Tiles.Count;
-
-        private void Start()
+        
+        public void Init()
         {
             ProcessLevelState();
         }

@@ -21,6 +21,7 @@ namespace TileMatch.Scripts.Managers
         
         [Header("GameScreen")]
         [SerializeField] private CanvasGroup gameScreen;
+        [SerializeField] private GameObject slotContainer;
         
         [Header("LoseScreen")]
         [SerializeField] private CanvasGroup loseScreen;
@@ -47,6 +48,11 @@ namespace TileMatch.Scripts.Managers
 
         #region ScreenManagement
 
+        private void SetSlotContainerVisibility(bool status)
+        {
+            slotContainer.SetActive(status);
+        }
+        
         private void SetScreenVisibility(CanvasGroup screen, bool status)
         {
             if(screen.gameObject.activeSelf == status) return;
@@ -78,11 +84,20 @@ namespace TileMatch.Scripts.Managers
                     SetScreenVisibility(gameScreen, false);
                     SetScreenVisibility(loseScreen, false);
                     SetScreenVisibility(winScreen, true);
+                    HideSlotContainer();
                     break;
                 
             }
         }
 
+        private void SetScreenVisibilities(int _)
+        {
+            SetScreenVisibility(loseScreen, false);
+            SetScreenVisibility(winScreen, false);
+            SetScreenVisibility(gameScreen, true);
+            SetSlotContainerVisibility(true);
+        }
+        
         #region LoseScreen
 
         public void OnPressHoldToSeeButton()
@@ -95,18 +110,23 @@ namespace TileMatch.Scripts.Managers
             loseScreen.alpha = 1F;
         }
 
-        public void OnClickPlayButton()
+        private void OnClickPlayButton()
         {
-            // TODO: Refresh Level
+            NotificationCenter.PostNotification(NotificationTag.OnRequestReloadLevel);
         }
 
         #endregion
         
         #region WinScreen
 
-        public void OnClickContinueButton()
+        private void OnClickContinueButton()
         {
-            // TODO: Load next level
+            NotificationCenter.PostNotification(NotificationTag.OnRequestLoadNextLevel);
+        }
+
+        private void HideSlotContainer()
+        {
+            SetSlotContainerVisibility(false);
         }
 
         #endregion
@@ -129,24 +149,30 @@ namespace TileMatch.Scripts.Managers
         
         private void OnEnable()
         {
+            playButton.onClick.AddListener(OnClickPlayButton);
             drawButton.onClick.AddListener(OnClickDrawButton);
             reverseButton.onClick.AddListener(OnClickReverseButton);
+            continueButton.onClick.AddListener(OnClickContinueButton);
             randomizeButton.onClick.AddListener(OnClickRandomizeButton);
             
             NotificationCenter.AddObserver<int>(NotificationTag.OnLevelLoaded, UpdateLevelTexts);
+            NotificationCenter.AddObserver<int>(NotificationTag.OnLevelLoaded, SetScreenVisibilities);
             NotificationCenter.AddObserver<float>(NotificationTag.OnLevelProgressChanged, UpdateProgress);
             NotificationCenter.AddObserver<GameState>(NotificationTag.OnGameStateChanged, OnGameStateChanged);
         }
 
         private void OnDisable()
         {
+            playButton.onClick.RemoveListener(OnClickPlayButton);
             drawButton.onClick.RemoveListener(OnClickDrawButton);
             reverseButton.onClick.RemoveListener(OnClickReverseButton);
+            continueButton.onClick.RemoveListener(OnClickContinueButton);
             randomizeButton.onClick.RemoveListener(OnClickRandomizeButton);
             
             NotificationCenter.RemoveObserver<int>(NotificationTag.OnLevelLoaded, UpdateLevelTexts);
+            NotificationCenter.RemoveObserver<int>(NotificationTag.OnLevelLoaded, SetScreenVisibilities);
             NotificationCenter.RemoveObserver<float>(NotificationTag.OnLevelProgressChanged, UpdateProgress);
-            NotificationCenter.AddObserver<GameState>(NotificationTag.OnGameStateChanged, OnGameStateChanged);
+            NotificationCenter.RemoveObserver<GameState>(NotificationTag.OnGameStateChanged, OnGameStateChanged);
         }
     }
 }

@@ -2674,7 +2674,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2066975520}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1362539174}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6bdca858f30d4bb5ab5d9cd86c3b3af0, type: 3}
@@ -2815,6 +2815,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1249963599}
   m_CullTransparentMesh: 1
+--- !u!1 &1362539174 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3442165595220049028, guid: 5fa89d6c6d86e4f299eb603d4806591d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2066975520}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1493040405
 GameObject:
   m_ObjectHideFlags: 0
@@ -2901,8 +2907,8 @@ MonoBehaviour:
   reverseButton: {fileID: 2127677632}
   randomizeButton: {fileID: 691201453}
   gameScreen: {fileID: 195225893}
+  slotContainer: {fileID: 1362539174}
   loseScreen: {fileID: 178162419}
-  background: {fileID: 178162417}
   playButton: {fileID: 1848784836}
   winScreen: {fileID: 231651074}
   continueButton: {fileID: 1132947585}

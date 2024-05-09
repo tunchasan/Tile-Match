@@ -1,3 +1,4 @@
+using TileMatch.Scripts.Gameplay.Tile;
 using UnityEngine;
 
 namespace TileMatch.Scripts.Gameplay.Grid
@@ -7,19 +8,18 @@ namespace TileMatch.Scripts.Gameplay.Grid
         [field: SerializeField] public StandardGrid[] Grids { get; private set; }
         public int LastIndex { get; private set; }
         
-        public bool Fill(Tile.Tile tile)
+        public void FillInEditMode(StandardTile standardTile)
         {
-            if (!this.HasAvailableSlot()) return false;
-            Grids[LastIndex].Fill(tile);
+            if (!this.HasAvailableSlot()) return;
+            Grids[LastIndex].FillInEditMode(standardTile);
             LastIndex++;
-            return true;
         }
 
-        public void Clear()
+        public void ClearInEditMode()
         {
             foreach (var t in Grids)
             {
-                t.Clear();
+                t.ClearInEditMode();
             }
             
             LastIndex = 0;

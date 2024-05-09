@@ -8,12 +8,12 @@ namespace TileMatch.Scripts.Gameplay.Tile
     public class TileContext
     {
         public bool Enabled;
-        public Tile Entity;
+        public StandardTile Entity;
     }
 
     public class TileFactory : Singleton<TileFactory>
     {
-        [field: SerializeField] public Tile TilePrefab { get; private set; }
+        [field: SerializeField] public StandardTile TilePrefab { get; private set; }
         [field: SerializeField] public TileConfig TileConfig { get; private set; }
         public TileTypeSelector TileTypeSelector { get; private set; } = new();
         
@@ -24,7 +24,7 @@ namespace TileMatch.Scripts.Gameplay.Tile
             DontDestroyOnLoad(gameObject);
         }
 
-        public Tile GetTile(List<TileType> tileFilter)
+        public StandardTile GetTile(List<TileType> tileFilter)
         {
             var tileType = TileTypeSelector.GetTile(tileFilter);
             var unusedTile = _tiles.FirstOrDefault(tile => !tile.Value.Enabled).Value;
@@ -55,23 +55,23 @@ namespace TileMatch.Scripts.Gameplay.Tile
             return newTile;
         }
 
-        public void DestroyTile(Tile tile)
+        public void DestroyTile(StandardTile standardTile)
         {
-            var tileContext = _tiles[tile.Id];
+            var tileContext = _tiles[standardTile.Id];
             
             if (tileContext != null)
             {
                 tileContext.Enabled = false;
                 tileContext.Entity.SetParent(transform);
                 tileContext.Entity.ResetTransform();
-                tileContext.Entity.SetInteraction(true);
+                tileContext.Entity.SetInteractionInEditMode(true);
                 tileContext.Entity.gameObject.SetActive(false);
                 TileTypeSelector.RemoveTile(tileContext.Entity.Type);
             }
 
             else
             {
-                Debug.LogError($"TileFactory::DestroyTile {tile.name}_{tile.Id} not found in factory!");
+                Debug.LogError($"TileFactory::DestroyTile {standardTile.name}_{standardTile.Id} not found in factory!");
             }
         }
 
@@ -83,7 +83,7 @@ namespace TileMatch.Scripts.Gameplay.Tile
             }
         }
 
-        public Tile[] GetActiveTiles()
+        public StandardTile[] GetActiveTiles()
         {
             return _tiles
                 .Where(t => t.Value.Enabled)
