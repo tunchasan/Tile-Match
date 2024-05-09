@@ -8,7 +8,7 @@ namespace TileMatch.Scripts.Gameplay.Level
         /// Validates the placement of tiles within the grids by checking for overlaps and disabling interactions
         /// on the lower tile of any overlapping pairs.
         /// </summary>
-        public static void RefreshLevel(Tile.Tile[] activeTiles)
+        public static void RefreshLevel(StandardTile[] activeTiles)
         {
             // Iterate through all pairs of active tiles to check for overlaps
             foreach (var t1 in activeTiles)
@@ -20,9 +20,9 @@ namespace TileMatch.Scripts.Gameplay.Level
                     if(t1.Equals(t2)) continue;
             
                     // Check for overlap and disable interaction if needed
-                    if (TileCollider.IsOverlapped(t1, t2, out var result))
+                    if (TileCollider.IsOverlapped(t1, t2, .65F, out var result))
                     {
-                        result.LowerTile.SetInteraction(false);
+                        result.LowerStandardTile.SetInteraction(false);
                     }
                 }
             }

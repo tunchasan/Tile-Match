@@ -1,5 +1,6 @@
 using UnityEngine;
 using EditorAttributes;
+using TileMatch.Scripts.Core.NotifySystem;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -27,6 +28,8 @@ namespace TileMatch.Scripts.Gameplay.Level
             {
                 var instance = Instantiate(_levelHandle.Result, LevelSocket);
                 CurrentLevel = instance.GetComponent<Level>();
+                
+                NotificationCenter.PostNotification(NotificationTag.OnLevelLoaded, LevelPointer + 1);
             }
 
             else

@@ -8,6 +8,7 @@ using TileMatch.Scripts.Gameplay.Grid;
 using TileMatch.Scripts.Gameplay.Level;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
+using UnityEditor.Animations;
 
 namespace TileMatch.Scripts.Core.LevelSystem
 {
@@ -23,10 +24,11 @@ namespace TileMatch.Scripts.Core.LevelSystem
         /// Saves a GameObject as a prefab after performing necessary cleanups and directory checks.
         /// </summary>
         /// <param name="levelGenerator">The LevelGenerator instance that contains the data to save.</param>
-        public static void SaveLevelPrefab(LevelGenerator levelGenerator)
+        /// <param name="animatorController">The AnimatorController to assign to the new Animator component.</param>
+        public static void SaveLevelPrefab(LevelGenerator levelGenerator, AnimatorController animatorController)
         {
             CreateDirectoryIfNeeded();
-            var prefabInstance = PreparePrefabInstance(levelGenerator.gameObject);
+            var prefabInstance = PreparePrefabInstance(levelGenerator.gameObject, animatorController);
             var levelGeneratorComponentInstance = prefabInstance.GetComponent<LevelGenerator>();
             CleanUpPrefabInstance(levelGeneratorComponentInstance, levelGenerator);
             SaveAndLogPrefab(prefabInstance);
@@ -46,19 +48,30 @@ namespace TileMatch.Scripts.Core.LevelSystem
         }
 
         /// <summary>
-        /// Creates a duplicate of the original GameObject for modifications and prefab saving.
+        /// Duplicates a specified GameObject and sets it up for modifications and prefab creation. 
+        /// This involves adding a Level component, setting up an Animator with a specified AnimatorController, 
+        /// and resetting the transform properties to default values.
         /// </summary>
         /// <param name="original">The original GameObject to duplicate.</param>
-        /// <returns>The duplicated GameObject.</returns>
-        private static GameObject PreparePrefabInstance(GameObject original)
+        /// <param name="animatorController">The AnimatorController to assign to the new Animator component.</param>
+        private static GameObject PreparePrefabInstance(GameObject original, RuntimeAnimatorController animatorController)
         {
             var instance = Object.Instantiate(original);
-            instance.AddComponent<Level>().Init();
+            
+            // Adds required level component
+            instance.AddComponent<Level>();
+
+            // Adds animator component & sets references
+            var animator = instance.AddComponent<Animator>();
+            animator.runtimeAnimatorController = animatorController;
+            
+            // Adjusts transform data
             var transform = instance.transform;
             transform.position = Vector3.zero;
             transform.localScale = Vector3.one;
+            
             return instance;
-        }
+        }   
 
         /// <summary>
         /// Performs cleanup on the prefab instance by removing unnecessary components and empty grids.

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using TileMatch.Scripts.Gameplay.Grid;
 using TileMatch.Scripts.Gameplay.Tile;
+using UnityEditor.Animations;
 
 namespace TileMatch.Scripts.Core.LevelSystem
 {
@@ -39,6 +40,10 @@ namespace TileMatch.Scripts.Core.LevelSystem
         private List<TileType> typeFilter;
 
         [Header("References")]
+        // Represents the generated level object's animator
+        [SerializeField]
+        public AnimatorController animatorController;
+        
         [SerializeField]
         // Represents top layer of the board.
         // Array of standard Grid objects in the level, where tiles are assigned during level generation.
@@ -86,7 +91,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
         /// </summary>
         public void SaveLevel()
         {
-            LevelPrefabUtility.SaveLevelPrefab(this);
+            LevelPrefabUtility.SaveLevelPrefab(this, animatorController);
         }
 
         /// <summary>
@@ -111,7 +116,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
             // Loop through each grid and assign a tile from the tile factory based on the type filter
             for (var i = 0; i < Mathf.Min(quantity, topLayerGrids.Length); i++)
             {
-                topLayerGrids[i].Fill(TileFactory.Instance.GetTile(typeFilter));
+                topLayerGrids[i].FillInEditMode(TileFactory.Instance.GetTile(typeFilter));
             }
         }
 
@@ -136,7 +141,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
                 foreach (var unused in t.Grids)
                 {
                     filledGrids++;
-                    t.Fill(TileFactory.Instance.GetTile(typeFilter)); // Fill the grid with a tile from the factory based on the type filter
+                    t.FillInEditMode(TileFactory.Instance.GetTile(typeFilter)); // Fill the grid with a tile from the factory based on the type filter
                     if (filledGrids >= quantity) return; // Exit if the desired quantity of tiles has been placed
                 }
             }
@@ -158,9 +163,9 @@ namespace TileMatch.Scripts.Core.LevelSystem
                     if(t1.Equals(t2)) continue;
             
                     // Check for overlap and disable interaction if needed
-                    if (TileCollider.IsOverlapped(t1, t2, out var result))
+                    if (TileCollider.IsOverlapped(t1, t2, .75F, out var result))
                     {
-                        result.LowerTile.SetInteraction(false);
+                        result.LowerStandardTile.SetInteractionInEditMode(false);
                     }
                 }
             }
@@ -174,13 +179,13 @@ namespace TileMatch.Scripts.Core.LevelSystem
             // Clear all tiles in normal grids
             foreach (var t in topLayerGrids)
             {
-                t.Clear();
+                t.ClearInEditMode();
             }
 
             // Clear all tiles in chained grids
             foreach (var t in bottomLayerGrids)
             {
-                t.Clear();
+                t.ClearInEditMode();
             }
         }
         
@@ -189,7 +194,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
         /// </summary>
         /// <param name="array">The list of items to be shuffled.</param>
         /// <typeparam name="T">The type of elements in the list.</typeparam>
-        private static void Shuffle<T>(IList<T> array)
+        public static void Shuffle<T>(IList<T> array)
         {
             for (var i = array.Count - 1; i > 0; i--)
             {
