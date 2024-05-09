@@ -85,6 +85,11 @@ namespace TileMatch.Scripts.Gameplay.Tile
             transform.DOScale(Vector3.zero, .4F);
             Destroy(gameObject, .4F);
         }
+
+        public void DestroyImmediately()
+        {
+            Destroy(gameObject);
+        }
         
         private void OnMouseDown()
         {

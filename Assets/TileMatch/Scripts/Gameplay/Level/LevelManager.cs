@@ -96,6 +96,8 @@ namespace TileMatch.Scripts.Gameplay.Level
 
         private void UnloadLevel()
         {
+            NotificationCenter.PostNotification(NotificationTag.OnLevelPreUnload);
+            
             if (CurrentLevel != null)
             {
                 Destroy(CurrentLevel.gameObject);

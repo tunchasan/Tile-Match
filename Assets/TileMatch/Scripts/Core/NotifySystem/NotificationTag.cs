@@ -6,6 +6,7 @@
         public const string OnGameStateChanged = "OnGameStateChanged";
         
         public const string OnLevelLoaded = "OnLevelLoaded";
+        public const string OnLevelPreUnload = "OnLevelPreUnload";
         public const string OnLevelStateProcessed = "OnLevelStateProcessed";
         public const string OnLevelProgressChanged = "OnLevelProgressChanged";
         public const string OnRequestReloadLevel = "OnRequestReloadLevel";

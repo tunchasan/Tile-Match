@@ -41,7 +41,7 @@ namespace TileMatch.Scripts.Gameplay.Slot
                 NotificationCenter.PostNotification(NotificationTag.OnTilePlacedToSlot, LevelStateChangeReason.Remove, elem);
 
                 // Checks, whether all slots filled or not
-                if (attachedTiles.Count == slots.Length && matchedSlotIndex == -1)
+                if (attachedTiles.Count == slots.Length && !HasAnyValidMatch(out _))
                 {
                     NotificationCenter.PostNotification(NotificationTag.AllSlotsFilled);
                 }
@@ -92,25 +92,46 @@ namespace TileMatch.Scripts.Gameplay.Slot
                 }
             }
         }
-        
-        private void ValidateSlots()
+
+        private bool HasAnyValidMatch(out int matchStartIndex)
         {
             if (attachedTiles.Count < 3)
-                return;
+            {
+                matchStartIndex = -1;
+                return false;
+            }
 
             for (var i = 0; i <= attachedTiles.Count - 3; i++)
             {
                 // Check the current tile against the next two tiles
-                if (attachedTiles[i].Type == attachedTiles[i + 1].Type && 
-                    attachedTiles[i].Type == attachedTiles[i + 2].Type)
+                if (attachedTiles[i].Type == attachedTiles[i + 1].Type && attachedTiles[i].Type == attachedTiles[i + 2].Type)
                 {
-                    Debug.Log($"SlotController::ValidateSlots Three consecutive tiles of type {attachedTiles[i].Type} found starting at index {i}.");
-                    NotificationCenter.PostNotification(NotificationTag.OnTilesMatched, new List<Tile.StandardTile> { attachedTiles[i], attachedTiles[i + 1], attachedTiles[i + 2] });
-                    MatchSlots(i);
+                    matchStartIndex = i;
+                    return true;
                 }
             }
-        }
 
+            matchStartIndex = -1;
+            return false;
+        }
+        
+        private void ValidateSlots()
+        {
+            if (HasAnyValidMatch(out var matchStartIndex))
+            {
+                Debug.Log($"SlotController::ValidateSlots Three consecutive tiles of type {attachedTiles[matchStartIndex].Type} found starting at index {matchStartIndex}.");
+                
+                var matchingTiles = new List<StandardTile>
+                {
+                    attachedTiles[matchStartIndex], attachedTiles[matchStartIndex + 1],
+                    attachedTiles[matchStartIndex + 2]
+                };
+                
+                NotificationCenter.PostNotification(NotificationTag.OnTilesMatched, matchingTiles);
+                MatchSlots(matchStartIndex);
+            }
+        }
+        
         private async void MatchSlots(int startingIndex)
         {
             for (var i = startingIndex + 2; i >= startingIndex; i--)
@@ -146,6 +167,28 @@ namespace TileMatch.Scripts.Gameplay.Slot
             }
         }
 
+        private void ClearSlots()
+        {
+            foreach (var slot in slots)
+            {
+                if (slot.IsEmpty) continue;
+                var tile = slot.AttachedTile;
+                tile.DestroyImmediately();
+                slot.Clear();
+            }
+            
+            foreach (var tempSlot in tempSlots)
+            {
+                if (tempSlot.IsEmpty) continue;
+                var tile = tempSlot.AttachedTile;
+                tile.DestroyImmediately();
+                tempSlot.Clear();
+            }
+            
+            attachedTiles.Clear();
+            attachedTilesInTempSlots.Clear();
+        }
+        
         private void FillSlot(StandardTile elem)
         {
             var availableSlot = slots[attachedTiles.Count];
@@ -199,6 +242,7 @@ namespace TileMatch.Scripts.Gameplay.Slot
         
         private void OnEnable()
         {
+            NotificationCenter.AddObserver(NotificationTag.OnLevelPreUnload, ClearSlots);
             NotificationCenter.AddObserver(NotificationTag.OnDrawAction, RequestDrawTiles);
             NotificationCenter.AddObserver(NotificationTag.OnReverseAction, RequestReverseMove);
             NotificationCenter.AddObserver<StandardTile>(NotificationTag.OnTileSelect, RequestFillSlot);
@@ -206,6 +250,7 @@ namespace TileMatch.Scripts.Gameplay.Slot
 
         private void OnDisable()
         {
+            NotificationCenter.RemoveObserver(NotificationTag.OnLevelPreUnload, ClearSlots);
             NotificationCenter.RemoveObserver(NotificationTag.OnDrawAction, RequestDrawTiles);
             NotificationCenter.RemoveObserver(NotificationTag.OnReverseAction, RequestReverseMove);
             NotificationCenter.RemoveObserver<StandardTile>(NotificationTag.OnTileSelect, RequestFillSlot);
