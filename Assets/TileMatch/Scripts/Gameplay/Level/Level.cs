@@ -64,6 +64,8 @@ namespace TileMatch.Scripts.Gameplay.Level
         
         private async void RandomizeLevelState()
         {
+            NotificationCenter.PostNotification(NotificationTag.OnActionProcess);
+            
             foreach (var grid in Grids)
             {
                 grid.Clear();
@@ -93,8 +95,8 @@ namespace TileMatch.Scripts.Gameplay.Level
             }
 
             await UniTask.Delay(300);
-            
             OnLevelStateChanged(LevelStateChangeReason.Randomize, null);
+            NotificationCenter.PostNotification(NotificationTag.OnActionProcessComplete);
         }
 
         private void AddTile(StandardTile tile)

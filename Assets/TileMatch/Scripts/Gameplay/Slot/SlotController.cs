@@ -205,29 +205,35 @@ namespace TileMatch.Scripts.Gameplay.Slot
             NotificationCenter.PostNotification(NotificationTag.OnTilePlacedToSlot, LevelStateChangeReason.Remove, elem);
         }
         
-        private void RequestReverseMove()
+        private async void RequestReverseMove()
         {
             if (attachedTiles.Count == 0)
             {
                 Debug.LogWarning("SlotController::RequestReverseMove Blocked!");
                 return;
             }
+            
+            NotificationCenter.PostNotification(NotificationTag.OnActionProcess);
 
             var element = attachedTiles[^1];
             var relatedSlot = slots[attachedTiles.Count - 1];
             RemoveElementFromSlot(relatedSlot, element);
             ReorderSlotElements();
-            
+
+            await UniTask.Delay(250);
+            NotificationCenter.PostNotification(NotificationTag.OnActionProcessComplete);
             NotificationCenter.PostNotification(NotificationTag.OnReverseActionCompleted, LevelStateChangeReason.Add, element);
         }
 
-        private void RequestDrawTiles()
+        private async void RequestDrawTiles()
         {
             if (attachedTiles.Count < 3 || attachedTilesInTempSlots.Count != 0)
             {
                 Debug.LogWarning("SlotController::RequestDrawTiles Blocked!");
                 return;
             }
+            
+            NotificationCenter.PostNotification(NotificationTag.OnActionProcess);
 
             for (var i = 0; i < tempSlots.Length; i++)
             {
@@ -238,6 +244,9 @@ namespace TileMatch.Scripts.Gameplay.Slot
             }
             
             ReorderSlotElements();
+
+            await UniTask.Delay(250);
+            NotificationCenter.PostNotification(NotificationTag.OnActionProcessComplete);
         }
         
         private void OnEnable()

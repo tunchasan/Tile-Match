@@ -21,6 +21,9 @@
         
         public const string OnDrawAction = "OnDrawAction";
         
+        public const string OnActionProcess = "OnActionProcess";
+        public const string OnActionProcessComplete = "OnActionProcessComplete";
+        
         public const string OnReverseAction = "OnReverseAction";        
         public const string OnReverseActionCompleted = "OnReverseActionCompleted";
 

@@ -18,7 +18,8 @@ namespace TileMatch.Scripts.Managers
         [SerializeField] private Button drawButton;
         [SerializeField] private Button reverseButton;
         [SerializeField] private Button randomizeButton;
-        
+        [SerializeField] private CanvasGroup buttonGroup;
+
         [Header("GameScreen")]
         [SerializeField] private CanvasGroup gameScreen;
         [SerializeField] private GameObject slotContainer;
@@ -46,6 +47,16 @@ namespace TileMatch.Scripts.Managers
         private void OnClickRandomizeButton()
         {
             NotificationCenter.PostNotification(NotificationTag.OnRandomizeBoardAction);
+        }
+
+        private void OnActionProcess()
+        {
+            buttonGroup.interactable = false;
+        }
+
+        private void OnActionProcessComplete()
+        {
+            buttonGroup.interactable = true;
         }
 
         #region ScreenManagement
@@ -165,9 +176,12 @@ namespace TileMatch.Scripts.Managers
             continueButton.onClick.AddListener(OnClickContinueButton);
             randomizeButton.onClick.AddListener(OnClickRandomizeButton);
             
+            NotificationCenter.AddObserver(NotificationTag.OnActionProcess, OnActionProcess);
+            NotificationCenter.AddObserver<int>(NotificationTag.OnLevelLoaded, UpdateLevelTexts);
             NotificationCenter.AddObserver<int>(NotificationTag.OnLevelLoaded, UpdateLevelTexts);
             NotificationCenter.AddObserver<int>(NotificationTag.OnLevelLoaded, ResetUIElements);
             NotificationCenter.AddObserver<float>(NotificationTag.OnLevelProgressChanged, UpdateProgress);
+            NotificationCenter.AddObserver(NotificationTag.OnActionProcessComplete, OnActionProcessComplete);
             NotificationCenter.AddObserver<GameState>(NotificationTag.OnGameStateChanged, OnGameStateChanged);
         }
 
@@ -179,9 +193,11 @@ namespace TileMatch.Scripts.Managers
             continueButton.onClick.RemoveListener(OnClickContinueButton);
             randomizeButton.onClick.RemoveListener(OnClickRandomizeButton);
             
+            NotificationCenter.AddObserver(NotificationTag.OnActionProcess, OnActionProcess);
             NotificationCenter.RemoveObserver<int>(NotificationTag.OnLevelLoaded, UpdateLevelTexts);
             NotificationCenter.RemoveObserver<int>(NotificationTag.OnLevelLoaded, ResetUIElements);
             NotificationCenter.RemoveObserver<float>(NotificationTag.OnLevelProgressChanged, UpdateProgress);
+            NotificationCenter.RemoveObserver(NotificationTag.OnActionProcessComplete, OnActionProcessComplete);
             NotificationCenter.RemoveObserver<GameState>(NotificationTag.OnGameStateChanged, OnGameStateChanged);
         }
     }
