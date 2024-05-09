@@ -30,7 +30,9 @@ namespace TileMatch.Scripts.Managers
         [Header("WinScreen")]
         [SerializeField] private CanvasGroup winScreen;
         [SerializeField] private Button continueButton;
-        
+
+        private static readonly Vector2 ProgressRange = new(0F, 535F);
+
         private void OnClickDrawButton()
         {
             NotificationCenter.PostNotification(NotificationTag.OnDrawAction);
@@ -90,12 +92,13 @@ namespace TileMatch.Scripts.Managers
             }
         }
 
-        private void SetScreenVisibilities(int _)
+        private void ResetUIElements(int _)
         {
             SetScreenVisibility(loseScreen, false);
             SetScreenVisibility(winScreen, false);
             SetScreenVisibility(gameScreen, true);
             SetSlotContainerVisibility(true);
+            ResetProgress();
         }
         
         #region LoseScreen
@@ -133,11 +136,18 @@ namespace TileMatch.Scripts.Managers
 
         #endregion
 
+        private void ResetProgress()
+        {
+            var progressSize = progress.sizeDelta;
+            progress.sizeDelta = new Vector2(ProgressRange.x, progressSize.y);
+        }
+        
         private void UpdateProgress(float value)
         {
             DOTween.Kill(progress);
-            var progressValue = Mathf.Lerp(0F, 535F, value);
-            progress.DOSizeDelta(new Vector2(progressValue, 32.5F), .2F);
+            var progressSize = progress.sizeDelta;
+            var progressValue = Mathf.Lerp(ProgressRange.x, ProgressRange.y, value);
+            progress.DOSizeDelta(new Vector2(progressValue, progressSize.y), .2F);
         }
 
         private void UpdateLevelTexts(int currentLevel)
@@ -156,7 +166,7 @@ namespace TileMatch.Scripts.Managers
             randomizeButton.onClick.AddListener(OnClickRandomizeButton);
             
             NotificationCenter.AddObserver<int>(NotificationTag.OnLevelLoaded, UpdateLevelTexts);
-            NotificationCenter.AddObserver<int>(NotificationTag.OnLevelLoaded, SetScreenVisibilities);
+            NotificationCenter.AddObserver<int>(NotificationTag.OnLevelLoaded, ResetUIElements);
             NotificationCenter.AddObserver<float>(NotificationTag.OnLevelProgressChanged, UpdateProgress);
             NotificationCenter.AddObserver<GameState>(NotificationTag.OnGameStateChanged, OnGameStateChanged);
         }
@@ -170,7 +180,7 @@ namespace TileMatch.Scripts.Managers
             randomizeButton.onClick.RemoveListener(OnClickRandomizeButton);
             
             NotificationCenter.RemoveObserver<int>(NotificationTag.OnLevelLoaded, UpdateLevelTexts);
-            NotificationCenter.RemoveObserver<int>(NotificationTag.OnLevelLoaded, SetScreenVisibilities);
+            NotificationCenter.RemoveObserver<int>(NotificationTag.OnLevelLoaded, ResetUIElements);
             NotificationCenter.RemoveObserver<float>(NotificationTag.OnLevelProgressChanged, UpdateProgress);
             NotificationCenter.RemoveObserver<GameState>(NotificationTag.OnGameStateChanged, OnGameStateChanged);
         }
