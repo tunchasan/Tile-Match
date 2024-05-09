@@ -4080,50 +4080,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1299838954534742544, guid: 0830e395e2c944b47a54319791fb8767,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3011874104717931686, guid: 0830e395e2c944b47a54319791fb8767,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3011874104717931686, guid: 0830e395e2c944b47a54319791fb8767,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3011874104717931686, guid: 0830e395e2c944b47a54319791fb8767,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3956368556037340514, guid: 0830e395e2c944b47a54319791fb8767,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4575681946614502925, guid: 0830e395e2c944b47a54319791fb8767,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7658757354236678516, guid: 0830e395e2c944b47a54319791fb8767,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7757693456460630019, guid: 0830e395e2c944b47a54319791fb8767,
         type: 3}
       propertyPath: m_Name
       value: Background
-      objectReference: {fileID: 0}
-    - target: {fileID: 7757693456460630019, guid: 0830e395e2c944b47a54319791fb8767,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7757693456460630020, guid: 0830e395e2c944b47a54319791fb8767,
         type: 3}
