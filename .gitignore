@@ -56,7 +56,6 @@ ExportedObj/
 sysinfo.txt
 
 # Builds
-*.apk
 *.aab
 *.unitypackage
 *.app
@@ -73,3 +72,5 @@ crashlytics-build.properties
 Assets/TileMatch/Scripts/Utils/.DS_Store
 Assets/TileMatch/Scripts/.DS_Store
 Assets/TileMatch/Scripts/Gameplay/.DS_Store
+.idea/.idea.Tile-Match-City-Builder/.idea/projectSettingsUpdater.xml
+.idea/.idea.Tile-Match-City-Builder/.idea/workspace.xml
