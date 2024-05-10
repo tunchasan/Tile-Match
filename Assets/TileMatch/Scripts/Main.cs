@@ -12,7 +12,6 @@ namespace TileMatch.Scripts
         [field: SerializeField] public LevelManager LevelManager { get; private set; }
         [field: SerializeField] public SlotController SlotController { get; private set; }
         [field: SerializeField] public GameManager GameManager { get; private set; }
-        
         [field: SerializeField] public AdaptiveScaleManager AdaptiveScaleManager { get; private set; }
 
         private void Awake()

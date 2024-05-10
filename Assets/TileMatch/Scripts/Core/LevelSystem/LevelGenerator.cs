@@ -5,7 +5,6 @@ using System.Linq;
 using UnityEngine;
 using EditorAttributes;
 using System.Collections.Generic;
-using Random = UnityEngine.Random;
 using TileMatch.Scripts.Gameplay.Grid;
 using TileMatch.Scripts.Gameplay.Tile;
 using TileMatch.Scripts.Utils;
@@ -52,7 +51,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
 
         [SerializeField]
         // Represents bottom layer of the board.
-        // Array of ChainedGrid objects for more complex tile arrangements that may have linked behavior or properties.
+        // Array of ChainedGrid objects for more complex tile arrangements.
         public ChainedGrid[] bottomLayerGrids;
         
         /// <summary>
@@ -105,7 +104,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
         }
 
         /// <summary>
-        /// Fills the standard grids with tiles. The grids are first shuffled for random tile distribution,
+        /// Fills the standard grids with the tiles. The grids are first shuffled for random tile distribution,
         /// then filled up to the specified quantity or the total number of grids available, whichever is smaller.
         /// </summary>
         /// <param name="quantity">The number of tiles to distribute among the grids.</param>
