@@ -24,7 +24,7 @@ namespace TileMatch.Scripts.Gameplay.Level
                     if(t1.Equals(t2)) continue;
             
                     // Check for overlap and disable interaction if needed
-                    if (TileCollider.IsOverlapped(t1, t2, .65F, out var result))
+                    if (TileCollider.IsOverlapped(t1, t2, Main.Instance.AdaptiveScaleManager.ThresholdByScaleFactor(), out var result))
                     {
                         result.LowerStandardTile.SetInteraction(false);
                     }
@@ -32,6 +32,9 @@ namespace TileMatch.Scripts.Gameplay.Level
             }
         }
         
+        /// <summary>
+        /// Asynchronously checks if a given addressable asset address is valid by attempting to load resource locations.
+        /// </summary>
         public static async Task<bool> IsLevelAddressValid(string address)
         {
             var handle = Addressables.LoadResourceLocationsAsync(address);
@@ -40,7 +43,8 @@ namespace TileMatch.Scripts.Gameplay.Level
 
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
-                var isValid = handle.Result != null && handle.Result.Count > 0;
+                var isValid = handle.Result is { Count: > 0 };
+                // Release the handle to avoid memory leaks
                 Addressables.Release(handle);
                 return isValid;
             }
