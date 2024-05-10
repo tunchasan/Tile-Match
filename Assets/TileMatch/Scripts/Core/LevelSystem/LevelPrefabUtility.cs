@@ -18,7 +18,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
     /// </summary>
     public static class LevelPrefabUtility
     {
-        private const string DirectoryPath = "Assets/Levels";
+        private const string DirectoryPath = "Assets/TileMatch/Levels";
         
         /// <summary>
         /// Saves a GameObject as a prefab after performing necessary cleanups and directory checks.
