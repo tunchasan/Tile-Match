@@ -3,10 +3,10 @@ using UnityEngine;
 using EditorAttributes;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using TileMatch.Scripts.Core.LevelSystem;
 using TileMatch.Scripts.Gameplay.Grid;
 using TileMatch.Scripts.Gameplay.Tile;
 using TileMatch.Scripts.Core.NotifySystem;
+using TileMatch.Scripts.Utils;
 
 namespace TileMatch.Scripts.Gameplay.Level
 {
@@ -77,7 +77,7 @@ namespace TileMatch.Scripts.Gameplay.Level
                 tile.SetInteraction(false);
             }
             
-            LevelGenerator.Shuffle(Grids);
+            Utilities.Shuffle(Grids);
 
             for (var i = 0; i < Grids.Count; i++)
             {

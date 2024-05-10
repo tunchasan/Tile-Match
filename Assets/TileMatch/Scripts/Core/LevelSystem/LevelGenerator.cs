@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using TileMatch.Scripts.Gameplay.Grid;
 using TileMatch.Scripts.Gameplay.Tile;
+using TileMatch.Scripts.Utils;
 using UnityEditor.Animations;
 
 namespace TileMatch.Scripts.Core.LevelSystem
@@ -111,7 +112,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
         private void FillGrids(int quantity)
         {
             // Shuffle grids to ensure random tile distribution
-            Shuffle(topLayerGrids);
+            Utilities.Shuffle(topLayerGrids);
 
             // Loop through each grid and assign a tile from the tile factory based on the type filter
             for (var i = 0; i < Mathf.Min(quantity, topLayerGrids.Length); i++)
@@ -128,7 +129,7 @@ namespace TileMatch.Scripts.Core.LevelSystem
         private void FillChainedGrids(int quantity)
         {
             // Shuffle chained grids to ensure random tile distribution
-            Shuffle(bottomLayerGrids);
+            Utilities.Shuffle(bottomLayerGrids);
 
             var filledGrids = 0;
             var selectionCount = (int)Math.Ceiling(quantity / 7F); // Calculate number of chained grids needed based on desired tile count
@@ -186,20 +187,6 @@ namespace TileMatch.Scripts.Core.LevelSystem
             foreach (var t in bottomLayerGrids)
             {
                 t.ClearInEditMode();
-            }
-        }
-        
-        /// <summary>
-        /// Shuffles the elements of the given list in place using the Fisher-Yates shuffle algorithm.
-        /// </summary>
-        /// <param name="array">The list of items to be shuffled.</param>
-        /// <typeparam name="T">The type of elements in the list.</typeparam>
-        public static void Shuffle<T>(IList<T> array)
-        {
-            for (var i = array.Count - 1; i > 0; i--)
-            {
-                var randomIndex = Random.Range(0, i + 1);
-                (array[i], array[randomIndex]) = (array[randomIndex], array[i]);
             }
         }
     }
