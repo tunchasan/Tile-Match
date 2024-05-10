@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using EditorAttributes;
 using Random = UnityEngine.Random;
 using TileMatch.Scripts.Core.NotifySystem;
 
@@ -8,13 +9,9 @@ namespace TileMatch.Scripts.Managers
 {
     public class BackgroundManager : MonoBehaviour
     {
-        [field: SerializeField] public List<GameObject> backgrounds = new();
-        private GameObject CurrentBackground { get; set; }
+        [field: SerializeField, ReadOnly] private GameObject CurrentBackground { get; set; }
 
-        private void Awake()
-        {
-            CurrentBackground = backgrounds[Random.Range(0, backgrounds.Count)];
-        }
+        [field: SerializeField] public List<GameObject> backgrounds = new();
 
         private void OnLevelLoaded(int value)
         {

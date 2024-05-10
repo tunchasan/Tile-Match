@@ -5090,6 +5090,7 @@ MonoBehaviour:
   - {fileID: 135532557226439516}
   - {fileID: 6064320529180619813}
   - {fileID: 8764332239527430200}
+  <CurrentBackground>k__BackingField: {fileID: 135532557226439516}
 --- !u!4 &5905075592246981644
 Transform:
   m_ObjectHideFlags: 0
