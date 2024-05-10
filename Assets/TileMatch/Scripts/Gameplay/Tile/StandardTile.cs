@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 using EditorAttributes;
 using TileMatch.Scripts.Core.NotifySystem;
@@ -14,7 +13,13 @@ namespace TileMatch.Scripts.Gameplay.Tile
         [field: SerializeField] private SpriteRenderer Renderer { get; set; }
         [field: SerializeField] private BoxCollider2D Collider { get; set; }
         [field: SerializeField] private ParticleSystem Particle { get; set; }
-        
+        private TileAnimation Animation { get; set; }
+
+        private void Awake()
+        {
+            Animation = new TileAnimation(Renderer, transform);
+        }
+
         public void Init(TileType type, Sprite sprite)
         {
             Type = type;
@@ -40,11 +45,12 @@ namespace TileMatch.Scripts.Gameplay.Tile
 
         private void SetColor(Color color)
         {
-            Renderer.DOColor(color, .25F);
+            Animation.AnimateColor(color);
         }
 
         public void SetInteraction(bool status, bool updateVisual = true)
         {
+            if(status == InteractionStatus) return;
             Collider.enabled = status;
             InteractionStatus = status;
             if(!updateVisual) return;
@@ -64,8 +70,8 @@ namespace TileMatch.Scripts.Gameplay.Tile
 
             if (animate)
             {
-                tileTransform.DOScale(Vector3.one, duration);
-                tileTransform.DOLocalMove(Vector3.zero, duration);
+                Animation.AnimateScale(Vector3.one, duration);
+                Animation.AnimatePosition(Vector3.zero, duration);
             }
 
             else
@@ -81,8 +87,7 @@ namespace TileMatch.Scripts.Gameplay.Tile
             Particle.transform.SetParent(null);
             var mainModule = Particle.main;
             mainModule.startColor = Type.GetColorByType();
-            
-            transform.DOScale(Vector3.zero, .4F);
+            Animation.AnimateScale(Vector3.zero, .4F);
             Destroy(gameObject, .4F);
         }
 
@@ -93,16 +98,20 @@ namespace TileMatch.Scripts.Gameplay.Tile
         
         private void OnMouseDown()
         {
-            transform.DOScale(Vector3.one * 1.2F, .25F);
+            Animation.AnimateScale(Vector3.one * 1.2F, .4F);
             NotificationCenter.PostNotification(NotificationTag.OnTilePress, this);
         }
 
         private void OnMouseUp()
         {
-            DOTween.Kill(transform);
-            transform.DOScale(Vector3.one, .1F);
+            Animation.AnimateScale(Vector3.one, .1F);
             NotificationCenter.PostNotification(NotificationTag.OnTileRelease, this);
             NotificationCenter.PostNotification(NotificationTag.OnTileSelect, this);
+        }
+
+        private void OnDestroy()
+        {
+            Animation?.OnDestroy();
         }
     }
 }

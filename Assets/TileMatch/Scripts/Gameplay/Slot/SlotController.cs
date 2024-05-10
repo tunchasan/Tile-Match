@@ -205,7 +205,7 @@ namespace TileMatch.Scripts.Gameplay.Slot
             NotificationCenter.PostNotification(NotificationTag.OnTilePlacedToSlot, LevelStateChangeReason.Remove, elem);
         }
         
-        private async void RequestReverseMove()
+        private void RequestReverseMove()
         {
             if (attachedTiles.Count == 0)
             {
@@ -220,7 +220,6 @@ namespace TileMatch.Scripts.Gameplay.Slot
             RemoveElementFromSlot(relatedSlot, element);
             ReorderSlotElements();
 
-            await UniTask.Delay(250);
             NotificationCenter.PostNotification(NotificationTag.OnActionProcessComplete);
             NotificationCenter.PostNotification(NotificationTag.OnReverseActionCompleted, LevelStateChangeReason.Add, element);
         }

@@ -1,0 +1,182 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UIAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: e768493ddca804421b25bd6727f9c844, type: 3}
+    - {fileID: 2800000, guid: 2c751e4707a714b1f9298a7a7b5504c2, type: 3}
+    - {fileID: 2800000, guid: 1f3ac5089d99d41c1806085aacd56753, type: 3}
+    - {fileID: 2800000, guid: 88516a7ae59dc4ae5a14e4e828c211fb, type: 3}
+    - {fileID: 2800000, guid: dd031b066e0ea4f208a75c42bcaf58da, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300004, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300108, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300106, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300112, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300110, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300028, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300116, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300030, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300114, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300032, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300120, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300034, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300118, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300020, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300022, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300122, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300024, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300026, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300036, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300038, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300102, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300104, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300086, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300088, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300058, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300090, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300064, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300056, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300092, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300076, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300066, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300094, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300074, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300060, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300096, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300062, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300050, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300098, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300072, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300048, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300100, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300084, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300054, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300082, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300068, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300052, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300080, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300070, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300042, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300078, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300040, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300046, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300044, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300018, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300016, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300010, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300008, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300014, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300012, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300002, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300000, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300006, guid: 1eaee135ce037439d925cee5e41ce026, type: 3}
+  - {fileID: 21300000, guid: dd031b066e0ea4f208a75c42bcaf58da, type: 3}
+  - {fileID: 21300000, guid: 2c751e4707a714b1f9298a7a7b5504c2, type: 3}
+  - {fileID: 21300000, guid: 1f3ac5089d99d41c1806085aacd56753, type: 3}
+  - {fileID: 21300000, guid: 88516a7ae59dc4ae5a14e4e828c211fb, type: 3}
+  - {fileID: 21300000, guid: 5b3a1c4f2d2e1f846a6e76cd2c5aa23b, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - GUI_2
+  - GUI_61
+  - GUI_60
+  - GUI_63
+  - GUI_62
+  - GUI_14
+  - GUI_65
+  - GUI_15
+  - GUI_64
+  - GUI_16
+  - GUI_67
+  - GUI_17
+  - GUI_66
+  - GUI_10
+  - GUI_11
+  - GUI_68
+  - GUI_12
+  - GUI_13
+  - GUI_18
+  - GUI_19
+  - GUI_58
+  - GUI_59
+  - GUI_48
+  - GUI_51
+  - GUI_29
+  - GUI_52
+  - GUI_32
+  - GUI_28
+  - GUI_53
+  - GUI_43
+  - GUI_33
+  - GUI_54
+  - GUI_42
+  - GUI_30
+  - GUI_55
+  - GUI_31
+  - GUI_25
+  - GUI_56
+  - GUI_36
+  - GUI_24
+  - GUI_57
+  - GUI_47
+  - GUI_27
+  - GUI_46
+  - GUI_34
+  - GUI_26
+  - GUI_45
+  - GUI_35
+  - GUI_21
+  - GUI_44
+  - GUI_20
+  - GUI_23
+  - GUI_22
+  - GUI_9
+  - GUI_8
+  - GUI_5
+  - GUI_4
+  - GUI_7
+  - GUI_6
+  - GUI_1
+  - GUI_0
+  - GUI_3
+  - plain-circle
+  - clockwise-rotation
+  - concentric-crescents
+  - card-draw
+  - redStone
+  m_RenderDataMap: {}
+  m_Tag: UIAtlas
+  m_IsVariant: 0

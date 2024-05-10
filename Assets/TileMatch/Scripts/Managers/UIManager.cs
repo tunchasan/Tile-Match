@@ -32,7 +32,7 @@ namespace TileMatch.Scripts.Managers
         [SerializeField] private CanvasGroup winScreen;
         [SerializeField] private Button continueButton;
 
-        private static readonly Vector2 ProgressRange = new(0F, 535F);
+        private static readonly Vector2 ProgressRange = new(20F, 560F);
 
         private void OnClickDrawButton()
         {
